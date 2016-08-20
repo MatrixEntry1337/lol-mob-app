@@ -1,0 +1,24 @@
+<ion-view view-title="Champions">
+  <ion-content>
+    <div class="list">
+
+  <label class="item item-input item-select">
+    <div class="input-label">
+      Filter
+    </div>
+    <select ng-options="option for option in listOfOptions"
+      ng-model="select.optionOne"
+      ng-change="selectedItemChange()">
+    </select>
+  </label>
+
+  <a class="item item-thumbnail-left" href="#/tab/champion/{{champ.id}}" 
+  ng-repeat = "champ in champions | orderBy: 'name'">
+    <img src="">
+    <h2>{{ champ.name }}</h2>
+    <p>{{ champ.title }}</p>
+  </a>
+
+</div>
+  </ion-content>
+</ion-view>
