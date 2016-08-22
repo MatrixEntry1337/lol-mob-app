@@ -14,7 +14,7 @@
 
   <a class="item item-thumbnail-left" href="#/tab/champion/{{champ.id}}" 
   ng-repeat = "champ in champions | orderBy: 'name'">
-    <img src="">
+    <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/champion/{{champ.key}}.png">
     <h2>{{ champ.name }}</h2>
     <p>{{ champ.title }}</p>
   </a>

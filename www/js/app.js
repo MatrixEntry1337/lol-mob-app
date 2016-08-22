@@ -48,7 +48,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'ChampsCtrl',
         resolve: {
           champData: function(Champions){
-            return  Champions.getChampData();
+            return  Champions.getChampTags();
           }
         }
       }

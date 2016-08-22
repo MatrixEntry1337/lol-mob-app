@@ -6,16 +6,87 @@
 -->
 <ion-view view-title="Champion: {{ champion.name }}">
   <ion-content class="padding">
+     
+     <label class="item item-input item-select">
+    <div class="input-label">
+      Filter
+    </div>
+    <select ng-options="option for option in listOfOptions"
+      ng-model="select.option"
+      ng-change="selectedItemChange()">
+    </select>
+  </label>
+     
      <div class="item item-avatar">
-      <img src="">
+      <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/champion/{{champion.key}}.png">
       <h2>{{ champion.name }}</h2>
       <p>{{ champion.title }}</p>
     </div>
 
     <div class="item item-body">
-      <img class="full-image" src="">
-      <p>
-        {{champion.lore}}
+      <div ng-show="showOptions.showStats">
+        <!-- Armor & Magic Resist -->
+        <p>
+          <span class="royal">Armor: </span>{{ stats.armor }}
+          <span class="royal">+{{ stats.armorperlevel }}</span>
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(stats.armor, stats.armorperlevel)}}
+        <p>
+        <p>
+          <span class="royal">Magic Resist: </span>{{ stats.spellblock}}
+          <span class="royal">+{{ stats.spellblockperlevel }}</span>
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(stats.spellblock, stats.spellblocklevel) }}
+        </p>
+        
+        <!--HP Per Level & HP Regen-->
+        <p>
+          <span class="balanced">HP Per Level: </span>{{ stats.hpperlevel }}
+        </p>
+        <p>
+          <span class="balanced">HP Regen: </span>{{ stats.hpregen}} 
+          <span class="balanced">+{{ stats.hpregenperlevel }}</span>
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(stats.hpregen, stats.hpregenperlevel) }}
+        </p>
+        
+        <!-- MP -->
+        <p>
+          <span class="positive">MP: </span>{{ stats.mp}} 
+          <span class="positive">+{{ stats.mpperlevel }}</span>
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(stats.mp, stats.mpperlevel) }}
+        </p>
+        
+        <!-- Attack Damage -->
+        <p>
+          <span class="assertive">Attack Damage: </span>{{ stats.attackdamage }} 
+          <span class="assertive">+{{ stats.attackdamageperlevel }}</span> 
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(stats.attackdamage, stats.attackdamageperlevel) }}
+        </p>
+        
+        <!-- Attack Speed & Attack Range -->
+        <p>
+          <span class="calm">Attack Speed: </span>{{ stats.attackspeedoffset }} 
+          <span class="calm">+{{ stats.attackspeedperlevel}}</span>
+        </p>
+        <!--<p>Crit: {{ stats.crit }} +{{ stats.critperlevel }}</p>-->
+        <p>
+          <span class="calm">Attack Range: </span>{{ stats.attackrange }}
+        </p>
+        
+        <!-- Move Speed -->
+        <p>
+          <span class="energized">Move Speed: </span>{{ stats.movespeed}}
+        </p>
+      </div>
+      <div ng-show="showOptions.showSpells">
+        <div ng-repeat ="spell in spells">
+          <p><strong>{{ spell.name }}</strong></p>
+          <small><em> Cost: {{ spell.costBurn }} </em></small>
+          <p> Description: {{ spell.description }} </p>
+          <p> Cooldown: {{ spell.cooldownBurn }} </p>
+          <!--<p>{{ spell.costBurn }}</p>-->
+        </div>
+      </div>
+      <p ng-show="showOptions.showLore">
+        {{ champion.lore }}
       </p>
       <!--<p>-->
       <!--  <a href="#" class="subdued">1 Like</a>-->
