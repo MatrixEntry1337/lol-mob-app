@@ -44,17 +44,17 @@ angular.module('starter.controllers', [])
 .controller('ChampDetailCtrl', function($scope, $stateParams, Champions, $log){
   
   $scope.spells;
+  $scope.stats;
   
   $scope.champLore = Champions.getChampLore($stateParams.champId).then(function(data){
     $scope.champion = data;
-    $log.log(data.lore);
   });
   
   $scope.champStats = Champions.getChampStats($stateParams.champId).then(function(data){
     $scope.stats = data.stats;
   });
   
-  $scope.champStats = Champions.getChampStats($stateParams.champId).then(function(data){
+  $scope.champSpells = Champions.getChampSpells($stateParams.champId).then(function(data){
    $scope.spells = data.spells;
   });
   

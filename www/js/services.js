@@ -30,7 +30,7 @@ angular.module('starter.services', [])
     });
   };
   
-  champions.getChampStats = function(champId){
+  champions.getChampSpells = function(champId){
     return $http.get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champId 
     + '?champData=spells&api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')
     .then(function(response){
