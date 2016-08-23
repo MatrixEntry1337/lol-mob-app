@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngSanitize'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -32,7 +32,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -64,32 +64,48 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
   })
+  
+  .state('tab.items', {
+    url: '/items',
+    views: {
+      'tab-items': {
+        templateUrl: 'templates/tab-items.html',
+        controller: 'ItemsCtrl',
+        resolve: {
+          ItemData: function(Items){
+           return Items.getItems();
+          }
+        }
+      }
+    }
+  })
+  
+  .state('tab.items-detail',{
+    url:'/item/:itemId',
+    views: {
+      'tab-items': {
+        templateUrl: 'templates/item-detail.html',
+        controller: 'ItemsDetailCtrl'
+      }
+    }
+  })
 
   .state('tab.champ-calc', {
       url: '/champ-calc',
       views: {
         'tab-champ-calc': {
           templateUrl: 'templates/tab-champ-calc.html',
-          controller: 'ChatsCtrl'
+          controller: ''
         }
       }
-    })
-    // .state('tab.chat-detail', {
-    //   url: '/chats/:chatId',
-    //   views: {
-    //     'tab-chats': {
-    //       templateUrl: 'templates/champ-calc.html',
-    //       controller: 'ChatDetailCtrl'
-    //     }
-    //   }
-    // })
-
+  })
+    
   .state('tab.match-info', {
-    url: '/match-info',
+    url: '/match-info',      
     views: {
       'tab-match-info': {
         templateUrl: 'templates/tab-match-info.html',
-        controller: 'AccountCtrl'
+        controller: ''
       }
     }
   });

@@ -1,1 +1,16 @@
 /* Empty. Add your own CSS if you like */
+
+/*.fixed{*/
+/*    position:fixed;*/
+/*}*/
+.align-right{
+  left: 70%;
+}
+
+.fixed-outside{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height:  20%;
+  text-align:center;
+}

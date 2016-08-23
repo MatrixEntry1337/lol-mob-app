@@ -1,8 +1,10 @@
 angular.module('starter.controllers', [])
 
 .controller('ChampsCtrl', function($scope, Champions, champData, $log) {
+  
   $scope.select = {};
   $scope.allChampions = [];
+  $scope.items = [];
   $scope.champions = [];
   $scope.championImages = [];
   $scope.listOfOptions = ['All', 'Assassin', 'Fighter', 'Mage', 'Marksman', 'Support', 'Tank'];
@@ -91,27 +93,14 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+.controller('ItemsCtrl', function($scope, Items , ItemData, $log){
+  $scope.items = [];
+  
+  angular.forEach(ItemData.data.data, function(element){
+    $scope.items.push(element);
+  });
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('ItemsDetailCtrl', function($scope, $stateParams, Items, $log){
+  $log.log("Selected this item: " + $stateParams.itemId);
 });

@@ -1,0 +1,21 @@
+<ion-view view-title="Items">
+    <ion-content>
+        <label class="item item-input item-select fixed">
+            <div class="input-label">
+                Filter
+            </div>
+            <select ng-options="option for option in listOfOptions"
+                ng-model="select.optionOne"
+                ng-change="selectedItemChange()">
+            </select>
+        </label>
+        <div class="list">
+        <a class="item item-thumbnail-left large-cards" href="#/tab/item/{{item.id}}" 
+        ng-repeat = "item in items | orderBy: 'name'">
+            <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/item/{{item.id}}.png">
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.plaintext }}</p>
+        </a>
+        </div>
+    </ion-content>
+</ion-view>

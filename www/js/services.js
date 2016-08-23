@@ -1,14 +1,13 @@
 angular.module('starter.services', [])
 
-.factory('Champions', function($http, $log, $q){
+.factory('Champions', function($http, $log){
   var champions = {};
-  champions.champPool;
   
   champions.getChampTags = function(){
     return $http.get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion'
     + '?champData=tags&api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')
-    .success(function(data){
-      console.log("Data from Riot was successfuly obtained: Tags");
+    .success(function(response){
+      console.log("Data from Riot was successfuly obtained: Champions");
     });
   };
   
@@ -41,4 +40,18 @@ angular.module('starter.services', [])
   
   return champions;
 
+})
+
+.factory('Items', function($http, $log){
+  var items = {};
+  
+  items.getItems = function(){
+    return $http.get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/item'
+    + '?api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')  
+    .success(function(response){
+      console.log("Data from Riot was successfuly obtained: Items");
+    });
+  };
+  
+  return items;
 });

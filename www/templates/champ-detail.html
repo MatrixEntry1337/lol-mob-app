@@ -85,9 +85,13 @@
           <!--<p>{{ spell.costBurn }}</p>-->
         </div>
       </div>
-      <p ng-show="showOptions.showLore">
-        {{ champion.lore }}
-      </p>
+      <ng-bind-html ng-show="showOptions.showLore"
+        ng-bind-html="champion.lore">
+      </ng-bind-html>
+      
+      <!--<p ng-show="showOptions.showLore">-->
+      <!--  {{ champion.lore }}-->
+      <!--</p>-->
       <!--<p>-->
       <!--  <a href="#" class="subdued">1 Like</a>-->
       <!--  <a href="#" class="subdued">5 Comments</a>-->
