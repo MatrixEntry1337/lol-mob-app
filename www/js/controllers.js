@@ -2,97 +2,29 @@ angular.module('starter.controllers', [])
 
 .controller('ChampsCtrl', function($scope, Champions, champData, $log) {
   
-  $scope.select = {};
-  $scope.allChampions = [];
-  $scope.champions = [];
+  $scope.allChampions = []; //all champs
+  $scope.champions = []; //champs sent to view
+  
   $scope.searchedChamps;
   $scope.filterChamps;
+  
   $scope.listOfOptions = ['All', 'Assassin', 'Fighter', 'Mage', 'Marksman', 'Support', 'Tank'];
-  $scope.select.optionOne = $scope.listOfOptions[0];
-  $scope.select.optionTwo;
-
+  $scope.select = {};
+  $scope.select.optionOne;
+  $scope.select.optionTwo = $scope.listOfOptions[0];
   
   //Grab Champions and tags
   angular.forEach(champData.data.data, function(element) {
     $scope.allChampions.push(element);
     $scope.champions.push(element);
-    $log.log("Got all champions.");
   });
   
   $scope.getSearchResults = function(){
-    // Debug
-    // $log.log("Start Seearch");
-    // $log.log("Looking for: " + $scope.select.optionTwo);
-    
-    var test;
-    var resultArray = [];
-    if($scope.select.optionTwo){
-      var lookUp = "" + $scope.select.optionTwo;
-      lookUp = lookUp.toLowerCase();
-      lookUp = new RegExp(lookUp + '+');
-      
-      angular.forEach($scope.allChampions, function(element){
-        test = "" + element.name;
-        test = test.toLowerCase();
-        if(lookUp.test(test))
-          // $log.log(element.name);
-          resultArray.push(element);
-      });
-      
-      $scope.searchedChamps = resultArray;
-      $scope.selectedItemChange();
-      $log.log("Search Completed.");
-    }else{
-      // $scope.champions = $scope.allChampions;
-      $scope.selectedItemChange();
-      $log.log("Search not activated");
-    }
-  };
-  
-  //Execute filter changes for the champion tab
-  $scope.selectedItemChange = function(){
-    var temp = [];
-    if($scope.select.optionTwo){
-      $log.log("Entered");
-      if($scope.select.optionOne != "All"){
-        for(var i = 0; i < $scope.searchedChamps.length; i++){
-          $log.log($scope.searchedChamps[i].tags[0]);
-          if($scope.searchedChamps[i].tags[0] == $scope.select.optionOne) 
-            temp.push($scope.searchedChamps[i]);
-          if($scope.searchedChamps[i].tags[1])
-            if($scope.searchedChamps[i].tags[1] == $scope.select.optionOne) 
-              temp.push($scope.searchedChamps[i]);
-        }
-        $scope.champions = temp;
-      }
-      else $scope.champions = $scope.searchedChamps;
-      
-      //Debug
-      $log.log("Champions loaded: ");
-      for(var j = 0; j < $scope.champions.length; j++){
-        $log.log($scope.champions[j].name);
-      }
-    }
-    else {if($scope.select.optionOne != "All"){
-      $log.log("Executing filter search");
-      for(var i = 0; i < $scope.allChampions.length; i++){
-        
-        if($scope.allChampions[i].tags[0] == $scope.select.optionOne) 
-          temp.push($scope.allChampions[i]);
-        if($scope.allChampions[i].tags[1])
-          if($scope.allChampions[i].tags[1] == $scope.select.optionOne) 
-            temp.push($scope.allChampions[i]);
-      }
-      $scope.champions = temp;
-      //Debug
-      $log.log("Champions loaded: ");
-      for(var j = 0; j < $scope.champions.length; j++){
-        $log.log($scope.champions[j].name);
-      }
-    }
-    else {
-      $scope.champions = $scope.allChampions;
-      $log.log("changes to all champs here");}
+    $scope.champions = Champions.getSearchResults($scope.select.optionOne, $scope.select.optionTwo);
+  // Debug
+    $log.log("Champions loaded: ");
+    for(var j = 0; j < $scope.champions.length; j++){
+      $log.log($scope.champions[j].name);
     }
   };
   

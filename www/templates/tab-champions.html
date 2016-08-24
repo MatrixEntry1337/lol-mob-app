@@ -6,7 +6,7 @@
           <div class="input-label">
             Search
           </div>
-          <input type="text" placeholder="Champ Name" ng-model="select.optionTwo"
+          <input type="text" placeholder="Champ Name" ng-model="select.optionOne"
           ng-change="getSearchResults()"/>
         </label>
       </div>
@@ -16,8 +16,8 @@
             Filter
           </div>
           <select ng-options="option for option in listOfOptions"
-            ng-model="select.optionOne"
-            ng-change="selectedItemChange()">
+            ng-model="select.optionTwo"
+            ng-change="getSearchResults()">
           </select>
         </label>
       </div>
