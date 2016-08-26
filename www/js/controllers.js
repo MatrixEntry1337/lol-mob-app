@@ -2,30 +2,18 @@ angular.module('starter.controllers', [])
 
 .controller('ChampsCtrl', function($scope, Champions, champData, $log) {
   
-  $scope.allChampions = []; //all champs
   $scope.champions = []; //champs sent to view
   
-  $scope.searchedChamps;
-  $scope.filterChamps;
-  
   $scope.listOfOptions = ['All', 'Assassin', 'Fighter', 'Mage', 'Marksman', 'Support', 'Tank'];
-  $scope.select = {};
-  $scope.select.optionOne;
-  $scope.select.optionTwo = $scope.listOfOptions[0];
+  $scope.select = {optionOne: null, optionTwo: $scope.listOfOptions[0]};
   
   //Grab Champions and tags
   angular.forEach(champData.data.data, function(element) {
-    $scope.allChampions.push(element);
     $scope.champions.push(element);
   });
   
   $scope.getSearchResults = function(){
     $scope.champions = Champions.getSearchResults($scope.select.optionOne, $scope.select.optionTwo);
-  // Debug
-    $log.log("Champions loaded: ");
-    for(var j = 0; j < $scope.champions.length; j++){
-      $log.log($scope.champions[j].name);
-    }
   };
   
 })
@@ -36,37 +24,29 @@ angular.module('starter.controllers', [])
   $scope.spells;
   $scope.stats;
   
-  $scope.champLore = Champions.getChampLore($stateParams.champId).then(function(data){
+  $scope.champData = Champions.getChampData($stateParams.champId).then(function(data){
     $scope.champion = data;
   });
   
-  $scope.champStats = Champions.getChampStats($stateParams.champId).then(function(data){
-    $scope.stats = data.stats;
-  });
-  
-  $scope.champSpells = Champions.getChampSpells($stateParams.champId).then(function(data){
-   $scope.spells = data.spells;
-  });
-  
-  $scope.select = {};
   $scope.showOptions = { showLore: false, showStats: true, showSpells: false};
-  $scope.listOfOptions = ['Lore', 'Stats', 'Spells'];
+  $scope.listOfOptions = ['Stats', 'Spells', 'Lore'];
+  $scope.select = {option: $scope.listOfOptions[0]};
   
   $scope.selectedItemChange = function(){
     if($scope.select.option == $scope.listOfOptions[0]){
-      $scope.showOptions.showStats = false;
-      $scope.showOptions.showSpells = false;
-      $scope.showOptions.showLore = true;
-    }
-    else if($scope.select.option == $scope.listOfOptions[1]){
       $scope.showOptions.showStats = true;
       $scope.showOptions.showSpells = false;
       $scope.showOptions.showLore = false;
     }
-    else{
+    else if($scope.select.option == $scope.listOfOptions[1]){
       $scope.showOptions.showStats = false;
       $scope.showOptions.showSpells = true;
       $scope.showOptions.showLore = false;
+    }
+    else{
+      $scope.showOptions.showStats = false;
+      $scope.showOptions.showSpells = false;
+      $scope.showOptions.showLore = true;
     }
     
   };
@@ -84,11 +64,41 @@ angular.module('starter.controllers', [])
 .controller('ItemsCtrl', function($scope, Items , ItemData, $log){
   $scope.items = [];
   
+  $scope.listOfOptions = [ 'All','Active', 'Armor', 'ArmorPenetration',
+    'AttackSpeed', 'Aura', 'Boots', 'Consumable', 'CooldownReduction',
+    'CriticalStrike', 'Damage', 'GoldPer', 'Health', 'HealthRegen',
+    'Jungle', 'Lane', 'LifeSteal', 'MagicPenetration', 'Mana',
+    'ManaRegen', 'Miscellaneous', 'NonbootsMovement', 'OnHit', 'Slow', 'SpellBlock',
+    'SpellDamage', 'SpellVamp', 'Stealth', 'Tenacity', 'Trinket', 
+    'Vision'];
+    
+  $scope.select = {};
+  $scope.select.optionOne;
+  $scope.select.optionTwo = $scope.listOfOptions[0];
+  
   angular.forEach(ItemData.data.data, function(element){
     $scope.items.push(element);
   });
+  
+  $scope.getSearchResults = function(){
+    $scope.items = Items.getSearchResults($scope.select.optionOne, $scope.select.optionTwo);
+  };
+  
 })
 
 .controller('ItemsDetailCtrl', function($scope, $stateParams, Items, $log){
+  $scope.showOptions = {showStats: true};
+  $scope.listOfOptions = ['Stats'];
+  $scope.select = {option: $scope.listOfOptions[0]};
   $log.log("Selected $scope item: " + $stateParams.itemId);
+  
+  $scope.getItemData = Items.getItemData($stateParams.itemId).then(function(data){
+    $scope.item = data;
+  });
+  
+  $scope.selectedItemChange = function(){
+    if($scope.select.option == 'Stats')
+      $scope.showStats = true;
+  };
+  
 });

@@ -1,5 +1,27 @@
 <ion-view view-title="Items">
     <ion-content>
-        <p>Works</p>
+        <label class="item item-input item-select">
+            <div class="input-label">
+                Filter
+            </div>
+            <select ng-options="option for option in listOfOptions"
+                ng-model="select.option"
+                ng-change="selectedItemChange()">
+            </select>
+        </label>
+         </label>
+            <div class="item item-avatar">
+                <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/item/{{item.id}}.png">
+                <h2>{{ item.name }}</h2>
+            </div>
+        
+            <div class="item item-body">
+                <div ng-show="showOptions.showStats">
+                    <p ng-repeat="(key, value) in item.stats">
+                        {{ key }}: {{ value }}
+                    </p>
+                </div>
+            </div>
+        </label>
     </ion-content>
 </ion-view>
