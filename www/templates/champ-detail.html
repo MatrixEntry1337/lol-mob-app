@@ -7,17 +7,17 @@
 <ion-view view-title="Champion: {{ champion.name }}">
   <ion-content class="padding">
      
-    <label class="item item-input item-select">
-      <div class="input-label">
-        Filter
-      </div>
-      <select ng-options="option for option in listOfOptions"
-        ng-model="select.option"
-        ng-change="selectedItemChange()">
-      </select>
-    </label>
+     <label class="item item-input item-select">
+    <div class="input-label">
+      Filter
+    </div>
+    <select ng-options="option for option in listOfOptions"
+      ng-model="select.option"
+      ng-change="selectedItemChange()">
+    </select>
+  </label>
      
-    <div class="item item-avatar">
+     <div class="item item-avatar">
       <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/champion/{{champion.key}}.png">
       <h2>{{ champion.name }}</h2>
       <p>{{ champion.title }}</p>
@@ -58,12 +58,12 @@
         <p>
           <span class="assertive">Attack Damage: </span>{{ champion.stats.attackdamage }} 
           <span class="assertive">+{{ champion.stats.attackdamageperlevel }}</span> 
-          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(champion.stats.attackdamage, champion.stats.attackdamageperlevel) }}
+          &nbsp&nbsp&nbsp <strong>Max: </strong>{{ max(champion.stats.attackdamage, champion.champion.stats.attackdamageperlevel) }}
         </p>
         
         <!-- Attack Speed & Attack Range -->
         <p>
-          <span class="calm">Attack Speed: </span>{{ chamoion.stats.attackspeedoffset }} 
+          <span class="calm">Attack Speed: </span>{{ champion.stats.attackspeedoffset }} 
           <span class="calm">+{{ champion.stats.attackspeedperlevel}}</span>
         </p>
         <!--<p>Crit: {{ stats.crit }} +{{ stats.critperlevel }}</p>-->
@@ -77,18 +77,23 @@
         </p>
       </div>
       <div ng-show="showOptions.showSpells">
+        <div>
+          <p><strong>{{ champion.passive.name }}</strong>(Passive)</p>
+          <p>{{ champion.passive.sanitizedDescription }}</p>
+        </div>
         <div ng-repeat ="spell in champion.spells">
           <p><strong>{{ spell.name }}</strong></p>
-          <small><em> Cost: {{ spell.costBurn }} </em></small>
-          <p> Description: {{ spell.description }} </p>
-          <p> Cooldown: {{ spell.cooldownBurn }} </p>
+          <p>{{ spell.description }}</p>
+          <p>Cost: {{ spell.costBurn }}</p>
+          <p>Cooldown: {{ spell.cooldownBurn }}</p>
           <!--<p>{{ spell.costBurn }}</p>-->
         </div>
       </div>
-      <ng-bind-html ng-show="showOptions.showLore"
-        ng-bind-html="champion.lore">
-      </ng-bind-html>
-      
+      <p>
+        <ng-bind-html ng-show="showOptions.showLore"
+          ng-bind-html="champion.lore">
+        </ng-bind-html>
+      </p>
       <!--<p ng-show="showOptions.showLore">-->
       <!--  {{ champion.lore }}-->
       <!--</p>-->

@@ -20,10 +20,6 @@ angular.module('starter.controllers', [])
 
 //Controller for Champion Details
 .controller('ChampDetailCtrl', function($scope, $stateParams, Champions, $log){
-  
-  $scope.spells;
-  $scope.stats;
-  
   $scope.champData = Champions.getChampData($stateParams.champId).then(function(data){
     $scope.champion = data;
   });
@@ -99,6 +95,63 @@ angular.module('starter.controllers', [])
   $scope.selectedItemChange = function(){
     if($scope.select.option == 'Stats')
       $scope.showStats = true;
+  };
+})
+
+.controller('MatchInfoCtrl', function($scope, MatchInfo, Champions, $log){
+  $scope.champions;
+  $scope.championPositions = [];
+  $scope.select = { optionOne: null };
+  $scope.listOfOptions = ['Bot', 'Mid', 'Jungle', 'Support', 'Top'];
+  
+  $scope.givePosition = function(champ){
+    $log.log("Checking");
+    var i = 0, found = false;
+    if($scope.championPositions.length > 0){
+      while( i < $scope.championPositions.length && !found){
+        if($scope.championPositions[i].champName == champ){
+          $log.log("Found Champ");
+          $scope.championPositions[i].showPos = !$scope.championPositions[i].showPos;
+          found = true;
+        }
+        i++;
+      }
+      if(!found)
+        $scope.championPositions.push({ champName: champ, showPos: true });
+    }else $scope.championPositions.push({ champName: champ, showPos: true });
+  };
+  
+  $scope.showPositions = function(champ){
+    for(var i = 0; i < $scope.championPositions.length; i++){
+      if($scope.championPositions[i].champName == champ && $scope.championPositions[i].showPos)
+        return true;
+    }
+    return false;
+  };
+  
+  $scope.getSearchResults = function(){
+    $log.log("Search executed.");
+    $scope.champions = Champions.getSearchResults($scope.select.optionOne, null);
+  };
+  
+})
+
+.controller('MatchInfoDetailCtrl', function($scope, $stateParams, MatchInfo, $log){
+  
+  MatchInfo.displayParameters($stateParams.champ, $stateParams.option);
+  
+  $scope.getFiller = MatchInfo.getFiller().then(function(data){
+    $scope.filler = data;
+  });
+})
+
+.controller('ChampCalcCtrl', function($scope, Champions, ChampCalc, $log){
+  $scope.select = {optionOne: null};
+  
+  
+  $scope.getSearchResults = function(){
+    $log.log("Search executed.");
+    $scope.champions = Champions.getSearchResults($scope.select.optionOne, null);
   };
   
 });

@@ -89,25 +89,40 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
-  .state('tab.champ-calc', {
-      url: '/champ-calc',
-      views: {
-        'tab-champ-calc': {
-          templateUrl: 'templates/tab-champ-calc.html',
-          controller: ''
-        }
-      }
-  })
     
   .state('tab.match-info', {
     url: '/match-info',      
     views: {
       'tab-match-info': {
         templateUrl: 'templates/tab-match-info.html',
-        controller: ''
+        controller: 'MatchInfoCtrl',
+        resolve: {
+          champData: function(Champions){
+            return  Champions.getChampTags();
+          }
+        }
       }
     }
+  })
+  
+  .state('tab.match-info-detail', {
+    url: '/match-info/:champ/:option',      
+    views: {
+      'tab-match-info': {
+        templateUrl: 'templates/match-info-detail.html',
+        controller: 'MatchInfoDetailCtrl'
+      }
+    }
+  })
+  
+  .state('tab.champ-calc', {
+      url: '/champ-calc',
+      views: {
+        'tab-champ-calc': {
+          templateUrl: 'templates/tab-champ-calc.html',
+          controller: 'ChampCalcCtrl'
+        }
+      }
   });
 
   // if none of the above states are matched, use this as the fallback

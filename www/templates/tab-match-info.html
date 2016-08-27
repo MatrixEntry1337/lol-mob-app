@@ -1,15 +1,35 @@
 <ion-view view-title="Match Info">
-  <ion-content>
-    <div class="card">
-      <label class="item item-input item-select padding-bottom">
+  <ion-content class="padding">
+    <div>
+      <label class="item item-input">
         <div class="input-label">
           Search
         </div>
-        <h1>OR</h1>
-      <select>
-        
-      </select>
-  </label>
+         <input type="text" placeholder="Champion Name" ng-model="select.optionOne"
+              ng-change="getSearchResults()"/>
+      </label>
     </div>
+    <div>
+      <div ng-repeat="champion in champions track by $index">
+        <div class="item item-avatar" ng-click="givePosition(champion.name)">
+          <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/champion/{{champion.key}}.png">
+          <h2>{{ champion.name }}</h2>
+          <p>{{ champion.title }}</p>
+        </div>
+        <div ng-show="showPositions(champion.name)">
+          <a class="item item-icon-left" ng-repeat="option in listOfOptions"
+          href="#/tab/match-info/{{champion.name}}/{{option}}">
+            <i class="icon"></i>
+            <p>
+              {{option}}
+            </p>
+          </a>
+          <div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </ion-content>
 </ion-view>

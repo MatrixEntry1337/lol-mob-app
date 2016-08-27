@@ -1,16 +1,23 @@
 <ion-view view-title="Champ Calc">
   <ion-content class="padding">
-   <label class="item item-input item-select padding-bottom">
-    <div class="input-label">
-      Select Champion
+    <label class="item item-input">
+      <div class="input-label">
+        Search
+      </div>
+      <input type="text" placeholder="Champion Name" ng-model="select.optionOne"
+        ng-change="getSearchResults()"/>
+    </label>
+    
+    <div ng-repeat="champion in champions track by $index">
+      <div class="item item-avatar" ng-click="givePosition(champion.name)">
+        <img src="http://ddragon.leagueoflegends.com/cdn/6.16.2/img/champion/{{champion.key}}.png">
+        <h2>{{ champion.name }}</h2>
+        <p>{{ champion.title }}</p>
+      </div>
     </div>
-    <select>
-      
-    </select>
-  </label>
 
-<button class="button button-block button-positive">
-  Start
-</button>
+    <button class="button button-block button-positive" ng-show="startCalc">
+      Start
+    </button>
   </ion-content>
 </ion-view>

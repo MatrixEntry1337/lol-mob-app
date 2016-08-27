@@ -9,7 +9,7 @@ angular.module('starter.services', [])
   
   //Filer and Search Champions
   champions.getSearchResults = function(optionOne, optionTwo){
-    // Debug
+    //Debug
     // $log.log(champions.data);
     // $log.log("Champions loaded: ");
     // angular.forEach(champions.data, function(element){
@@ -73,7 +73,7 @@ angular.module('starter.services', [])
     + '?champData=tags&api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')
     .success(function(response){
       var temp = [];
-      console.log("Data from Riot was successfuly obtained: Champions"); 
+      $log.log("Data from Riot was successfuly obtained: Champions"); 
       // angular.copy(response.data, champions.data);
       angular.forEach(response.data, function(element) {
         temp.push(element);
@@ -86,7 +86,7 @@ angular.module('starter.services', [])
    return $http.get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion/' + champId 
     + '?champData=all&api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')
     .then(function(response){
-      console.log("Data from Riot was successfully obtained: Champ Lore");
+      $log.log("Data from Riot was successfully obtained: Champ Lore");
       return response.data;
     });
   };
@@ -170,7 +170,7 @@ angular.module('starter.services', [])
         temp.push(element); 
       });
       items.data = temp;
-      console.log("Data from Riot was successfuly obtained: Items");
+      $log.log("Data from Riot was successfuly obtained: Items");
     });
   };
   
@@ -178,10 +178,35 @@ angular.module('starter.services', [])
     return $http.get('https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/'
     + itemData + '?itemData=all&api_key=RGAPI-92E49C03-4CA0-4923-8DEB-7011FA9D8E6A')
     .then(function(response){
-      console.log("Data from Riot was successfully obtained: Item Stats");
+      $log.log("Data from Riot was successfully obtained: Item Stats");
       return response.data;
     });
   };
   
   return items;
+})
+
+.factory('MatchInfo', function($http, $log){
+  var matchInfo = {};
+  
+  matchInfo.displayParameters = function(champName, option){
+    $log.log("Champion: " + champName);
+    $log.log("Option: " + option);
+  };
+  
+  matchInfo.getFiller = function(){
+    return $http.get('https://baconipsum.com/api/?type=all-meat&paras=3&format=html')
+    .then(function(response){
+        $log.log("Response from server: " +response.data);
+        return response.data;
+    });
+  };
+  
+  return matchInfo;
+})
+
+.factory('ChampCalc', function($http, $log){
+  var champCalc = {};
+  
+  return champCalc;
 });
